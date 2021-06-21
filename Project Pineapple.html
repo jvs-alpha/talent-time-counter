@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="google" content="notranslate" />
+    <meta name="og:description" content="Wait for it" />
+    <meta name="og:url" content="" />
+    <meta name="og:title" content="Count timer" />
+    <meta
+      name="og:image"
+      content="https://i.ibb.co/kJSVKwx/iconfinder-stop-watch-time-count-2203547.png"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="shortcut icon"
+      href="https://i.ibb.co/kJSVKwx/iconfinder-stop-watch-time-count-2203547.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato|Montserrat|Rubik+Mono+One&display=swap"
+      rel="stylesheet"
+    />
+    <title>YouTube journey</title>
+    <style>
+      html {
+        display: grid;
+        min-height: 100%;
+      }
+
+      body {
+        display: grid;
+        background: #333;
+      }
+
+      .main {
+        position: relative;
+        margin: auto;
+        overflow: hidden;
+        width: 850px;
+        height: 480px;
+      }
+
+      .demo {
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+        margin-top: 0.5em;
+        font-size: 0.75em;
+        text-transform: capitalize;
+        letter-spacing: 3px;
+        color: #f6f4f3;
+        align-items: center;
+      }
+
+      .addSpace {
+        margin-bottom: 1.5rem;
+      }
+
+      h1 {
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+        margin-top: 2em;
+        font-size: 2em;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #f6f4f3;
+      }
+      h1 sup {
+        text-transform: lowercase;
+        color: #ff3e41;
+      }
+
+      .yt {
+        background: #b31217;
+        padding: 5px;
+        border-radius: 6px;
+        text-align: center;
+        line-height: 1;
+        font-weight: 700;
+        margin-right: 5px;
+      }
+
+      #countdown {
+        color: #f6f4f3;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: "Lato", sans-serif;
+        font-size: 0.7em;
+        letter-spacing: 5px;
+        margin-top: 5%;
+      }
+
+      .days,
+      .hours,
+      .minutes,
+      .seconds,
+      .left {
+        display: inline-block;
+        padding: 10px 20px;
+        width: 120px;
+        border-radius: 10px;
+      }
+
+      .days {
+        background: #d87200;
+      }
+
+      .hours {
+        background: #ff3e41;
+      }
+
+      .minutes {
+        background: #ffb20c;
+      }
+
+      .seconds {
+        background: #2186ff;
+      }
+
+      .left {
+        background: #b31217;
+      }
+      .c-number {
+        font-family: "Montserrat", sans-serif;
+        color: #333;
+        font-size: 5em;
+      }
+
+      /* Add
+ */
+      .demo a {
+        text-transform: uppercase;
+        font-size: 35px;
+        font-weight: 300;
+        color: #f6f4f3;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      @media only screen and (max-width: 500px) {
+        body {
+          overflow: hidden;
+        }
+        .main {
+          width: 50%;
+          height: 100%;
+          display: flex;
+          flex-flow: column;
+        }
+
+        .days,
+        .hours,
+        .minutes,
+        .seconds,
+        .left {
+          margin: 5px;
+          padding: 10px 20px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="mainLead"></h1>
+      <h4 class="demo addSpace">
+        you<span class="yt">Tube</span> journey started
+      </h4>
+      <h6 class="demo addSpace">
+        <iframe
+          src="https://www.youtube.com/subscribe_embed?channelid=UCvgfTzKHq2LDZB6R7fEq2tQ"
+          frameborder="0"
+          hspace="0"
+          marginheight="0"
+          marginwidth="0"
+          scrolling="no"
+          tabindex="0"
+          vspace="0"
+          width="100%"
+          style="
+            position: static;
+            top: 0px;
+            width: 110px;
+            margin: 0px;
+            border-style: none;
+            left: 0px;
+            visibility: visible;
+            height: 24px;
+          "
+        ></iframe>
+      </h6>
+      <div class="main" id="main">
+        <div id="countdown"></div>
+      </div>
+      <h1 id="demo" class="demo"></h1>
+    </div>
+
+    <script>
+      const num = 31;
+      const timer = "May 31, 2020 00:00:00";
+      document.getElementsByClassName(
+        "mainLead"
+      )[0].innerHTML = `${num}<sup>${getOrdinal(num)}</sup> Of MAy`;
+      console.log(document.getElementsByClassName("mainLead"));
+      // Set the date we're counting down to
+      var countDownDate = new Date(timer).getTime();
+
+      // Update the count down every 1 second
+      var x = setInterval(function () {
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor(
+          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+        );
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("countdown").innerHTML =
+          '<div class= "days" > \
+              <div class="c-number">' +
+          ~days +
+          '</div>days</div > \
+              <div class="hours"> \
+            <div class="c-number">' +
+          ~hours +
+          '</div>hours</div> \
+              <div class="minutes"> \
+            <div class="c-number">' +
+          ~minutes +
+          '</div>minutes</div> \
+              <div class="seconds"> \
+            <div class="c-number">' +
+          ~seconds +
+          '</div>seconds</div> \
+              <div class="left">STARTED</div>\
+          </div >';
+      }, 1000);
+
+      function getOrdinal(day) {
+        var a = day % 10;
+        return 1 == ~~((day % 100) / 10)
+          ? "th"
+          : 1 === a
+          ? "st"
+          : 2 === a
+          ? "nd"
+          : 3 === a
+          ? "rd"
+          : "th";
+      }
+    </script>
+  </body>
+</html>
