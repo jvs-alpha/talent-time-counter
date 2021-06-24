@@ -18,6 +18,6 @@ This is for creating a count up timer for a specific task
           basetime: "May 28, 2021 00:00:00",
           title: `project 1`,
           id: 1,
-	  stopwatch: 00:00:00,
+	      stopwatch: 00:00:00,
 }
 ```

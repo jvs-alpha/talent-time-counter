@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="google" content="notranslate" />
+    <meta name="og:description" content="Wait for it" />
+    <meta name="og:url" content="" />
+    <meta name="og:title" content="" />
+    <meta
+      name="og:image"
+      content="https://i.ibb.co/kJSVKwx/iconfinder-stop-watch-time-count-2203547.png"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="shortcut icon"
+      href="https://i.ibb.co/kJSVKwx/iconfinder-stop-watch-time-count-2203547.png"
+      type="image/x-icon"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato|Montserrat|Rubik+Mono+One&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.9.1/axios.js"
+      integrity="sha512-Kg0CewqPNO/ziOJuCq5eyl3P/V6OLz/Lb1I2m+yKS3lHZcGVFN/KOew18rWP+kTsL7haYdaqGjwHQCZrN0heLQ=="
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+
+      html {
+        display: grid;
+        min-height: 100%;
+        overflow: scroll;
+        overflow-x: hidden;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      html::-webkit-scrollbar {
+        display: none;
+      }
+
+      body {
+        display: grid;
+        background: #333;
+      }
+
+      .main {
+        position: relative;
+        margin: auto;
+        overflow: hidden;
+        width: 850px;
+        height: 480px;
+      }
+
+      .demo {
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+        margin-top: 0.5em;
+        font-size: 0.75em;
+        text-transform: capitalize;
+        letter-spacing: 3px;
+        color: #f6f4f3;
+        align-items: center;
+      }
+
+      h1 {
+        font-family: "Montserrat", sans-serif;
+        text-align: center;
+        margin-top: 2em;
+        font-size: 2em;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #f6f4f3;
+      }
+      h1 sup {
+        text-transform: lowercase;
+        color: #ff3e41;
+      }
+
+      #countdown {
+        color: #f6f4f3;
+        text-align: center;
+        text-transform: uppercase;
+        font-family: "Lato", sans-serif;
+        font-size: 0.7em;
+        letter-spacing: 5px;
+        margin-top: 5%;
+      }
+
+      .downDrop {
+        width: 30px;
+        height: 30px;
+        margin: 2px;
+        padding: 3px;
+      }
+
+      .menu-box {
+        display: none;
+        width: 180px;
+        min-width: 60px;
+        max-height: 150px;
+        background-color: #dadbd4;
+        transition: 0.5s all;
+        border-radius: 5px;
+        overflow-y: scroll;
+      }
+
+      .menu-box::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: transparent;
+      }
+
+      .menu-box::-webkit-scrollbar {
+        width: 6px;
+        background-color: transparent;
+      }
+
+      .menu-box::-webkit-scrollbar-thumb {
+        background-color: #f0f0f0;
+        border-radius: 5px;
+      }
+
+      .menu-box > ul {
+        list-style: circle;
+        margin-top: 5px;
+        padding: 2px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .menu-box > ul > li {
+        padding: 5px;
+        font-family: "Open Sans", sans-serif;
+      }
+
+      .menu-box > ul > li:hover {
+        background-color: #ebebeb;
+        transition: 0.4s all;
+        cursor: pointer;
+        border-radius: 10px;
+      }
+
+      .downDrop span svg:hover {
+        cursor: pointer;
+      }
+
+      .days,
+      .hours,
+      .minutes,
+      .seconds,
+      .left {
+        display: inline-block;
+        padding: 10px 20px;
+        width: 120px;
+        border-radius: 10px;
+      }
+
+      .days {
+        background: #d87200;
+      }
+
+      .hours {
+        background: #ff3e41;
+      }
+
+      .minutes {
+        background: #ffb20c;
+      }
+
+      .seconds {
+        background: #2186ff;
+      }
+
+      .left {
+        background: #e10a0a;
+      }
+      .c-number {
+        font-family: "Montserrat", sans-serif;
+        color: #333;
+        font-size: 5em;
+      }
+
+      /* Add
+*/
+      .demo a {
+        text-transform: uppercase;
+        font-size: 35px;
+        font-weight: 300;
+        color: #f6f4f3;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      @media only screen and (max-width: 500px) {
+        body {
+          min-height: 200px;
+        }
+        .main {
+          width: 50%;
+          height: 80%;
+          display: flex;
+          flex-flow: column;
+        }
+
+        .days,
+        .hours,
+        .minutes,
+        .seconds,
+        .left {
+          margin: 5px;
+          padding: 10px 20px;
+        }
+      }
+    </style>
+    <title>Count On Me</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="menu">
+        <div class="btn">
+          <div class="downDrop">
+            <span onclick="showList()">
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                data-prefix="fad"
+                data-icon="chevron-down"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                class="svg-inline--fa fa-chevron-down fa-w-14 fa-3x"
+              >
+                <g class="fa-group">
+                  <path
+                    fill="#DADBD4"
+                    d="M224.1 284.64l-56.89 56.78-154-154.31a24 24 0 0 1 0-33.94l22.65-22.7a23.93 23.93 0 0 1 33.84 0z"
+                    class="fa-secondary"
+                  ></path>
+                  <path
+                    fill="#dadbd4"
+                    d="M435 187.15L241 381.48a23.94 23.94 0 0 1-33.84 0l-40-40 211.34-211a23.93 23.93 0 0 1 33.84 0L435 153.21a24 24 0 0 1 0 33.94z"
+                    class="fa-primary"
+                  ></path>
+                </g>
+              </svg>
+            </span>
+          </div>
+        </div>
+        <div class="menu-box">
+          <ul id="list_project"></ul>
+        </div>
+      </div>
+      <div class="alertMe mt-3 mb-3" id="alertMe"></div>
+      <div class="box" id="box"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script>
+      const listProject = document.getElementById("list_project");
+      const box = document.getElementById("box");
+
+      var x;
+
+      const data = [
+        {
+          name: "project 1",
+          baseTime: "May 28, 2021 00:00:00",
+          descriptionHead: "Nil",
+          mainHead: `28<sup>${getOrdinal(28)}</sup> Of may`,
+          id: 1,
+        },
+        {
+          name: "project 2",
+          baseTime: "May 01, 2021 00:00:00",
+          descriptionHead: "awesome guy everknown",
+          mainHead: `01<sup>${getOrdinal(25)}</sup> Of May`,
+          id: 2,
+        },
+        {
+          name: "project 3",
+          baseTime: "May 12, 2021 00:00:00",
+          descriptionHead: "awesome guy everknown",
+          mainHead: `12<sup>${getOrdinal(12)}</sup> Of May`,
+          id: 3,
+        },
+        {
+          name: "project 4",
+          baseTime: "May 07, 2021 00:00:00",
+          descriptionHead: "awesome guy everknown",
+          mainHead: `07<sup>${getOrdinal(7)}</sup> Of May`,
+          id: 4,
+        },
+        {
+          name: "project 5",
+          baseTime: "May 03, 2021 00:00:00",
+          descriptionHead: "awesome guy everknown",
+          mainHead: `03<sup>${getOrdinal(3)}</sup> Of May`,
+          id: 5,
+        },
+      ];
+
+      data.forEach((el) => {
+        const li = document.createElement("li");
+        li.innerText = el.name;
+        li.setAttribute("id", el.id);
+        li.addEventListener("click", () => {
+          specficList(+li.id);
+        });
+        listProject.append(li);
+      });
+
+      function specficList(id) {
+        showList();
+        clearInterval(x);
+        data.forEach((el) => {
+          console.log(el.id === id);
+          if (el.id === id) {
+            basicInit(el);
+          }
+        });
+      }
+
+      basicInit(data[1]);
+
+      function getOrdinal(day) {
+        var a = day % 10;
+        return 1 == ~~((day % 100) / 10)
+          ? "th"
+          : 1 === a
+          ? "st"
+          : 2 === a
+          ? "nd"
+          : 3 === a
+          ? "rd"
+          : "th";
+      }
+
+      function alert(className, message) {
+        return (
+          $("#alertMe").fadeIn(),
+          $("#alertMe").html(
+            `<div class="alert alert-${className} demo" role="alert">${message}</div>`
+          ),
+          setTimeout(() => {
+            $("#alertMe").fadeOut(1000).empty();
+          }, 4000)
+        );
+      }
+
+      function showList() {
+        $(".menu-box").toggle();
+      }
+
+      function basicInit(xData) {
+        box.innerHTML = "";
+        let { descriptionHead, mainHead, baseTime, name, id } = xData;
+
+        let mainh1 = document.createElement("h1");
+        mainh1.innerHTML = mainHead;
+        let demo = document.createElement("h6");
+        demo.setAttribute("class", "demo");
+        demo.innerText = name;
+
+        let demo2 = document.createElement("div");
+        demo2.setAttribute("class", "demo");
+        demo2.innerText = descriptionHead;
+
+        let main = document.createElement("div");
+        main.setAttribute("class", "main");
+        main.setAttribute("id", "main");
+
+        let count = document.createElement("div");
+        count.setAttribute("id", "countdown");
+        main.appendChild(count);
+
+        box.append(mainh1, demo, demo2, main);
+        var countDownDate = new Date(baseTime).getTime();
+
+        // Update the count down every 1 second
+        x = setInterval(function () {
+          // Get today's date and time
+          var now = new Date().getTime();
+
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+
+          // Time calculations for days, hours, minutes and seconds
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor(
+            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+          document.getElementById("countdown").innerHTML =
+            '<div class= "days" > \
+              <div class="c-number">' +
+            ~days +
+            '</div>days</div > \
+              <div class="hours"> \
+            <div class="c-number">' +
+            ~hours +
+            '</div>hours</div> \
+              <div class="minutes"> \
+            <div class="c-number">' +
+            ~minutes +
+            '</div>minutes</div> \
+              <div class="seconds"> \
+            <div class="c-number">' +
+            ~seconds +
+            '</div>seconds</div> \
+              <div class="left">STARTED</div>\
+          </div >';
+        }, 1000);
+      }
+    </script>
+  </body>
+</html>
