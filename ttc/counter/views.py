@@ -5,11 +5,12 @@ from .models import Counter
 import datetime
 # Create your views here.
 
-def index(request):
+def get(request):
     data = []
-    dict = {}
     for i in Counter.objects.all():
-        dict["id"] = i.id
+        dict = {}
+        obj = Counter.objects.get(title=i.title)
+        dict["id"] = obj.id
         dict["title"] = i.title
         dict["basetime"] = str(i.basetime)
         dict["stopwatch"] = i.stopwatch
