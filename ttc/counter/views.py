@@ -9,8 +9,7 @@ def get(request):
     data = []
     for i in Counter.objects.all():
         dict = {}
-        obj = Counter.objects.get(title=i.title)
-        dict["id"] = obj.id
+        dict["iid"] = i.iid
         dict["title"] = i.title
         dict["basetime"] = str(i.basetime)
         dict["stopwatch"] = i.stopwatch
